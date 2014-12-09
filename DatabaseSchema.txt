@@ -1,0 +1,30 @@
+
+create table LoginDetails(UserName varchar(15) not null , Password varchar(15), Role varchar(15), primary key(UserName));
+
+Insert into LoginDetails values('swa001','swa1234','admin');
+Insert into LoginDetails values('swa007','swa1234','employee');
+
+
+create table EmployeeDetails(Firstname varchar(15),Lastname varchar(15), UserName varchar(15), Foreign Key (UserName) References LoginDetails(UserName));
+
+create table Customer(Firstname varchar(15),Lastname varchar(15), UserName varchar(15),Street varchar(30),City varchar(15),Pincode int,MobileNum long, Foreign Key (UserName) References LoginDetails(UserName));
+
+create table Items(ItemNo varchar(15) Not Null, ItemName varchar(30), Description varchar(50), Price Decimal(5,2), status varchar(15), Primary Key(ItemNo) );
+
+create table cart(ItemName varchar(30), Price Decimal(5,2), Qty int);
+
+create table OrderDetails(OrderNo varchar(15) Not Null, OrderDate Date , Username varchar(15), TotalAmount Decimal(5,2), Status varchar(30), Primary Key(OrderNo),Foreign Key (UserName) References LoginDetails(username) );
+
+create table Orderlist(Itemname varchar(15), Qty int, price Decimal(5,2), orderno varchar(15), Foreign Key (orderNo) References OrderDetails(OrderNo) );
+
+create sequence itemid_seq
+Minvalue 1
+Start with 1001
+Increment by 1
+cache 5;
+
+create sequence orderno_seq
+Minvalue 1
+Start with 5001
+Increment by 1
+cache 5;
